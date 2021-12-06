@@ -1,0 +1,41 @@
+<ng-container *ngIf="pokemon$ | async as pokemon">
+  <p-card header="{{pokemon.name}}" subheader="#{{pokemon.order}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
+    <ng-template pTemplate="header">
+      <!-- <img src="{{pokemon.sprite}}" /> -->
+    </ng-template>
+
+    <ng-template pTemplate="body">
+      <ul>
+        <li *ngFor="let r of pokemon.stats">
+          <span>{{r.stat}}: {{r.base_stat}}</span>
+        </li>
+      </ul>
+      <span>{{pokemon.types}}</span>
+      <span>{{pokemon.abilities}}</span>
+      <span>{{pokemon.height}}</span>
+      <span>{{pokemon.weight}}</span>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+
+    </ng-template>
+
+  </p-card>
+</ng-container>
+
+
+<!-- <ng-container *ngIf="pokemon">
+  <p-card header="{{pokemon.name}}" class="teste" subheader="Card Subheader" [style]="{width: '360px'}"
+    styleClass="p-card-shadow">
+
+    <ng-template pTemplate="header">
+      <img alt="Card" src="{{pokemon.sprites.front_default}}">
+    </ng-template>
+
+
+    <ng-template pTemplate="footer">
+
+    </ng-template>
+
+  </p-card>
+</ng-container> -->
