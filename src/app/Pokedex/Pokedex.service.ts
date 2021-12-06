@@ -30,7 +30,6 @@ export class PokedexService {
           moves: o.moves.map(o=> o.move.name),
           stats: o.stats.map(o=> { return { stat: o.stat.name, base_stat: o.base_stat }}),
         }
-      }),
-        tap(o => console.log(o)));
+      }));
   }
 }

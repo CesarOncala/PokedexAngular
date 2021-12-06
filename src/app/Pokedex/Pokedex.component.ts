@@ -15,30 +15,19 @@ export class PokedexComponent implements OnInit {
   pokemonList$!: Observable<any>
 
   ngOnInit() {
-
-
-    this.pokemonList$ = this.pokedexService.GetPokemonsPaged(0, 10)
+    this.loadPokemon(0,25);
   }
 
   onPageChange($event: any) {
-    //event.first = Index of the first record
-    //event.rows = Number of rows to display in new page
-    //event.page = Index of the new page
-    //event.pageCount = Total number of pages
+
+    this.loadPokemon($event.first,25)
+
     console.log($event)
+
   }
 
-
-  paginate(event: any) {
-    //event.first: Index of first record being displayed
-    //event.rows: Number of rows to display in new page
-    //event.page: Index of the new page
-    //event.pageCount: Total number of pages
-    let pageIndex = event.first / event.rows + 1 // Index of the new page if event.page not defined.
-    console.log(event)
+  loadPokemon(offset: number, limit: number) {
+    this.pokemonList$ = this.pokedexService.GetPokemonsPaged(offset,limit)
   }
-
-
-
 
 }

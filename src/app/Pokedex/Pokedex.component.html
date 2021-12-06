@@ -1,6 +1,6 @@
-<p-paginator  (onPage)="paginate($event)" (onPageChange)="onPageChange($event)"  [rows]="10" [totalRecords]="120"></p-paginator>
-<!-- <div class="lista" *ngIf="pokemonList$ | async as pokemons">
+<p-paginator (onPageChange)="onPageChange($event)" [rows]="25" [totalRecords]="1118"></p-paginator>
+<div class="lista" *ngIf="pokemonList$ | async as pokemons">
   <div *ngFor="let pokemon of pokemons.results">
     <app-PokeCard [url]="pokemon.url"></app-PokeCard>
   </div>
--->
+</div>
