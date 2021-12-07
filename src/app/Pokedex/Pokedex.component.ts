@@ -11,23 +11,21 @@ import { PokedexService } from './Pokedex.service';
 })
 export class PokedexComponent implements OnInit {
 
-  constructor(private pokedexService: PokedexService) { }
-  pokemonList$!: Observable<any>
+  constructor(private pokedexService: PokedexService) {}
+
+  pokemonList$!: Observable<any>;
+  perPage: number = 15;
 
   ngOnInit() {
-    this.loadPokemon(0,25);
+    this.loadPokemon(0, this.perPage);
   }
 
   onPageChange($event: any) {
-
-    this.loadPokemon($event.first,25)
-
-    console.log($event)
-
+    this.loadPokemon($event.first, this.perPage)
   }
 
   loadPokemon(offset: number, limit: number) {
-    this.pokemonList$ = this.pokedexService.GetPokemonsPaged(offset,limit)
+    this.pokemonList$ = this.pokedexService.GetPokemonsPaged(offset, limit)
   }
 
 }

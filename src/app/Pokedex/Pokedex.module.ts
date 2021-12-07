@@ -5,13 +5,17 @@ import { PokedexComponent } from './Pokedex.component';
 import { PokedexRoutingModule } from './Pokedex.routing.module';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
+import {CarouselModule} from 'primeng/carousel';
+import {AccordionModule} from 'primeng/accordion';
 
 @NgModule({
   imports: [
     CommonModule,
     CardModule,
     PokedexRoutingModule,
-    PaginatorModule
+    PaginatorModule,
+    CarouselModule,
+    AccordionModule
   ],
   declarations: [PokedexComponent, PokeCardComponent],
   exports: [PokedexComponent]

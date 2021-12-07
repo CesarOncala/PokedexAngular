@@ -15,9 +15,30 @@ export class PokeCardComponent implements OnInit/*, OnDestroy*/ {
   //pokemonSub!: Subscription
 
   @Input() url!: string;
+  responsiveOptions: any
+
+  constructor(private pokedexService: PokedexService) {
+
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 3
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
 
 
-  constructor(private pokedexService: PokedexService) { }
+  }
 
   ngOnInit() {
     this.pokemon$ = this.pokedexService.GetPokemon(this.url)
