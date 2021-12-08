@@ -16,12 +16,9 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.items = [
             {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['']},
-            {label: 'Calendar', icon: 'pi pi-fw pi-calendar', routerLink: ['pokemons']},
-            {label: 'Edit', icon: 'pi pi-fw pi-pencil'},
-            {label: 'Documentation', icon: 'pi pi-fw pi-file'},
-            {label: 'Settings', icon: 'pi pi-fw pi-cog'}
+            {label: 'Pokedex', icon: '', routerLink: ['pokemons']},
         ];
-        this.activeItem = this.items[0];
+        this.activeItem = this.items[1];
       }
 
 }

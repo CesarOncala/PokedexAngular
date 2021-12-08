@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
 import { Pokemon } from '../Models/Pokemon';
 import { map, pluck, switchMap, tap } from 'rxjs/operators'
 
@@ -9,6 +9,8 @@ import { map, pluck, switchMap, tap } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class PokedexService {
+
+  private searchedPokemon = new BehaviorSubject<string>('')
 
   constructor(private http: HttpClient) { }
 
@@ -41,7 +43,7 @@ export class PokedexService {
   }
 
   GetPokemonByName(name: string) {
-    return (`https://pokeapi.co/api/v2/pokemon/${name}`)
+    return of(`https://pokeapi.co/api/v2/pokemon/${name}`)
   }
 
   private deepSearch(root: any, buffer: string[] = [], search: string = ''): string[] {
@@ -67,6 +69,7 @@ export class PokedexService {
 
     return sprites;
   }
+
 
   private getMainSprite(o: any) {
 

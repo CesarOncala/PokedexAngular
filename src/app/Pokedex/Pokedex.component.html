@@ -1,21 +1,23 @@
 <p-paginator (onPageChange)="onPageChange($event)" [rows]="perPage" [rowsPerPageOptions]="[perPage,15,20,30]"
-    [totalRecords]="1118"></p-paginator>
-<span class="p-input-icon-left">
-    <i class="pi pi-search"></i>
-    <input type="text" pInputText placeholder="Search" (keydown)="searchPokemon($event)" [(ngModel)]="search" />
-</span>
-<div class="lista" *ngIf="pokemonList$ | async as pokemons">
+  [totalRecords]="pokemonCount"></p-paginator>
 
+<div *ngIf="pokemonList$ | async as pokemons">
+  <div class="search-bar">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input type="text" pInputText placeholder="Digite o pokémon e pressione 'Enter' " (keyup)="searchPokemon($event)"
+        [(ngModel)]="search" />
+    </span>
+  </div>
+  <div class="lista">
 
     <ng-container *ngIf="pokemons?.results != null;else elseBlock">
-        <app-PokeCard *ngFor="let pokemon of pokemons.results" [url]="pokemon.url"></app-PokeCard>
+      <app-PokeCard *ngFor="let pokemon of pokemons.results" [url]="pokemon.url"></app-PokeCard>
     </ng-container>
 
-
     <ng-template #elseBlock>
-        <app-PokeCard [url]="pokemons"></app-PokeCard>
+      <app-PokeCard [url]="pokemons"></app-PokeCard>
     </ng-template>
 
+  </div>
 </div>
-
-<!-- <div *ngIf="teste == 0; else elseBlock" style="color: red;">TTTTT</div> -->

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { BehaviorSubject, forkJoin, Observable, of, Subject, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Pokemon } from '../Models/Pokemon';
 import { PokedexService } from './Pokedex.service';
@@ -9,32 +9,40 @@ import { PokedexService } from './Pokedex.service';
   templateUrl: './Pokedex.component.html',
   styleUrls: ['./Pokedex.component.css']
 })
-export class PokedexComponent implements OnInit {
+export class PokedexComponent implements OnInit, OnDestroy {
 
-  constructor(private pokedexService: PokedexService) { }
+  constructor(private pokedexService: PokedexService, viewContainerRef: ViewContainerRef) { }
 
   pokemonList$!: Observable<any>;
   perPage: number = 12;
   search!: string
-
+  pokemonCount!: number;
+  pokemonCountSub!: Subscription
 
   ngOnInit() {
-    this.loadPokemon(0, this.perPage);
+    this.pokemonCountSub = this.pokedexService.GetPokemonsPaged(0, this.perPage).subscribe(o => { this.pokemonCount = o.count })
+    this.loadPokemon();
+  }
+
+  ngOnDestroy() {
+    this.pokemonCountSub.unsubscribe()
   }
 
   onPageChange($event: any) {
-    console.log($event)
     this.loadPokemon($event.first, $event.rows)
   }
 
-  loadPokemon(offset: number, limit: number) {
+  loadPokemon(offset: number = 0, limit: number = this.perPage) {
     this.pokemonList$ = this.pokedexService.GetPokemonsPaged(offset, limit)
   }
 
   searchPokemon(event: any) {
-    if (event.keyCode === 13) {
-      this.pokemonList$ = of(null)
-      this.pokemonList$ = of(this.pokedexService.GetPokemonByName(event.target.value))
+
+    if (event.target.value === '' || event.target.value === null || event.target.value === undefined)
+      this.loadPokemon()
+
+    if (event.keyCode === 13) {// enter
+      this.pokemonList$ = this.pokedexService.GetPokemonByName(event.target.value)
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { PokedexService } from '../Pokedex/Pokedex.service';
 
@@ -36,8 +36,6 @@ export class PokeCardComponent implements OnInit/*, OnDestroy*/ {
         numScroll: 1
       }
     ];
-
-
   }
 
   ngOnInit() {
@@ -46,8 +44,9 @@ export class PokeCardComponent implements OnInit/*, OnDestroy*/ {
     //   .subscribe(o => this.pokemon = o)
   }
 
-  // ngOnDestroy() {
-  //   this.pokemonSub.unsubscribe()
-  // }
+  ngOnChanges(changes: SimpleChanges) {
+    // alert(changes.url.currentValue)
+    this.pokemon$ = this.pokedexService.GetPokemon(changes.url.currentValue)
+  }
 
 }
