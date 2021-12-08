@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Pokemon } from '../Models/Pokemon';
 import { map, pluck, switchMap, tap } from 'rxjs/operators'
 
@@ -20,6 +20,7 @@ export class PokedexService {
     return this.http.get<Pokemon>(url)
       .pipe(map(o => {
         return {
+
           name: o.name,
           types: o.types.map(o => o.type.name).join(', '),
           sprite: this.getMainSprite(o),
@@ -39,7 +40,11 @@ export class PokedexService {
       }));
   }
 
-  deepSearch(root: any, buffer: string[] = [], search: string = ''): string[] {
+  GetPokemonByName(name: string) {
+    return (`https://pokeapi.co/api/v2/pokemon/${name}`)
+  }
+
+  private deepSearch(root: any, buffer: string[] = [], search: string = ''): string[] {
 
     let sprites: string[] = buffer;
 
@@ -63,7 +68,7 @@ export class PokedexService {
     return sprites;
   }
 
-  getMainSprite(o: any) {
+  private getMainSprite(o: any) {
 
     let shiny = this.deepSearch(o.sprites, [], 'shiny')
 

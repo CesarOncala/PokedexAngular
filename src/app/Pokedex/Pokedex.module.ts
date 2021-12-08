@@ -7,6 +7,7 @@ import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
 import {CarouselModule} from 'primeng/carousel';
 import {AccordionModule} from 'primeng/accordion';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {AccordionModule} from 'primeng/accordion';
     PokedexRoutingModule,
     PaginatorModule,
     CarouselModule,
-    AccordionModule
+    AccordionModule,
+    InputTextModule
   ],
   declarations: [PokedexComponent, PokeCardComponent],
   exports: [PokedexComponent]
