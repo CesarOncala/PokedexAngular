@@ -11,7 +11,7 @@ import { PokedexService } from './Pokedex.service';
 })
 export class PokedexComponent implements OnInit, OnDestroy {
 
-  constructor(private pokedexService: PokedexService, viewContainerRef: ViewContainerRef) { }
+  constructor(private pokedexService: PokedexService) { }
 
   pokemonList$!: Observable<any>;
   perPage: number = 12;
@@ -38,11 +38,12 @@ export class PokedexComponent implements OnInit, OnDestroy {
 
   searchPokemon(event: any) {
 
-    if (event.target.value === '' || event.target.value === null || event.target.value === undefined)
-      this.loadPokemon()
-
     if (event.keyCode === 13) {// enter
       this.pokemonList$ = this.pokedexService.GetPokemonByName(event.target.value)
+
+      if (event.target.value === '' || event.target.value === null || event.target.value === undefined)
+        this.loadPokemon()
+
     }
   }
 

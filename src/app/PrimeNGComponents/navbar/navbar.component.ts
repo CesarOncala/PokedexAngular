@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
             {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['']},
             {label: 'Pokedex', icon: '', routerLink: ['pokemons']},
         ];
-        this.activeItem = this.items[1];
+        this.activeItem = this.items[0];
       }
 
 }

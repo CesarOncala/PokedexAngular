@@ -26,13 +26,14 @@ export class PokedexService {
           name: o.name,
           types: o.types.map(o => o.type.name).join(', '),
           sprite: this.getMainSprite(o),
-
+          games: o.game_indices.map(o => o.version.name).sort(),
           abilities: o.abilities.map(o => o.ability.name).join(', '),
           height: o.height,
           weight: o.weight,
           order: o.order,
           moves: o.moves.map(o => o.move.name).sort(),
           stats: o.stats.map(o => { return { stat: o.stat.name, base_stat: o.base_stat } }),
+          species: this.http.get<any>(o.species.url).pipe(tap(o => console.log(o))),
           sprites: this.deepSearch(o.sprites).sort((x: string, o: string): number => {
             if (x.includes('back'))
               return 1
@@ -71,14 +72,18 @@ export class PokedexService {
   }
 
 
-  private getMainSprite(o: any) {
+  private getMainSprite(o: Pokemon) {
 
     let shiny = this.deepSearch(o.sprites, [], 'shiny')
 
     let final = shiny.find(o => o.includes('home/')) || shiny.find(o => !o.includes('back'))
 
     return [o.sprites.other.home.front_default != null ?
-      o.sprites.other.home.front_default : o.sprites.other.dream_world.front_default != null ?
-        o.sprites.other.dream_world.front_default : o.sprites.front_default, final]
+      o.sprites.other.home.front_default :
+      o.sprites.other.dream_world.front_default != null ?
+        o.sprites.other.dream_world.front_default :
+        o.sprites.front_default != null ?
+          o.sprites.front_default :
+          this.deepSearch(o.sprites, [])[0], final]
   }
 }

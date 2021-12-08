@@ -49,6 +49,21 @@
         </p-accordionTab>
       </p-accordion>
 
+      <p-accordion>
+        <p-accordionTab header="{{'Games List: '+ pokemon.games.length}}" [selected]="false">
+          <ul class="pokemon_moves">
+            <li *ngFor="let game of pokemon.games"> {{game}} </li>
+          </ul>
+        </p-accordionTab>
+      </p-accordion>
+
+
+      <!-- <ng-container *ngIf="pokemon$ | async as pokemon"></ng-container>
+      <p-accordion>
+        <p-accordionTab header="{{pokemon.species}}" [selected]="false">
+
+        </p-accordionTab>
+      </p-accordion> -->
 
     </ng-template>
 
