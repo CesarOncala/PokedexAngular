@@ -130,4 +130,44 @@
 }
 
 
+.evolutions_list li[hasvalue='0']{
+    background-color: gray;
+    justify-content: space-between;
+    font-weight: bold;
+    border: 2px solid white;
+    text-transform: capitalize;
+    text-align: center;
+    margin-right: 1rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+}
 
+
+.evolutions_list {
+  display: flex;
+  list-style: none;
+}
+
+.evolution_sprites{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+}
+
+
+.evolution_sprites img[spritetype='normal']{
+  width: 25%;
+  margin: 0 auto;
+  border: 5px solid rgb(82, 80, 79);
+  border-radius: 7rem;
+  box-shadow:2px 2px 15px 2px lightgreen;
+}
+
+.evolution_sprites img[spritetype='evolution']{
+  width: 25%;
+  margin: 0 auto;
+  border: 5px solid rgb(82, 80, 79);
+  border-radius: 7rem;
+  box-shadow:2px 2px 15px 2px gold;
+}

@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
@@ -5,12 +6,11 @@ import { Pokemon } from '../Models/Pokemon';
 import { map, pluck, switchMap, tap } from 'rxjs/operators'
 
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class PokedexService {
-
-  private searchedPokemon = new BehaviorSubject<string>('')
 
   constructor(private http: HttpClient) { }
 
@@ -33,7 +33,51 @@ export class PokedexService {
           order: o.order,
           moves: o.moves.map(o => o.move.name).sort(),
           stats: o.stats.map(o => { return { stat: o.stat.name, base_stat: o.base_stat } }),
-          species: this.http.get<any>(o.species.url).pipe(tap(o => console.log(o))),
+          genus: fetch(o.species.url)
+            .then(o => o.json())
+            .then(o => o.genera[7]?.genus)
+          ,
+          evolutions: fetch(o.species.url)
+            .then(o => o.json())
+            .then(async o => await fetch(o.evolution_chain.url)
+              .then(o => o.json())
+              .then(async o => {
+
+                let evolutions = this.getEvolutions(o.chain.evolves_to);
+                evolutions.splice(0, 0, o.chain.species?.name)
+
+                const promise = new Promise<string[]>((resolve, reject) => {
+
+                  let requests: Promise<any>[] = []
+
+                  evolutions.forEach(o => {
+                    requests.push(fetch('https://pokeapi.co/api/v2/pokemon/' + o))
+                  })
+
+                  Promise.all(requests)
+                    .then(o => o.map(async r => await r.json()))
+                    .then(async o => {
+
+                      let sprites: any[] = []
+
+                      let pokemons = <Pokemon[]>(await Promise.all(o))
+
+                      for (let index = 0; index < pokemons.length; index++) {
+                        sprites = [...sprites, this.getMainSprite(<Pokemon>(pokemons[index]))[0]]
+                      }
+
+                      return resolve(sprites)
+
+                    })
+                })
+
+                return <any>[
+                  evolutions.filter(o=> o!=''),
+                  (await promise)
+                ]
+              })
+            )
+          ,
           sprites: this.deepSearch(o.sprites).sort((x: string, o: string): number => {
             if (x.includes('back'))
               return 1
@@ -71,6 +115,19 @@ export class PokedexService {
     return sprites;
   }
 
+  private getEvolutions(evolutions: any[], names: string[] = []): string[] {
+
+    if (evolutions.length == 0)
+      return names;
+
+    for (const evolution of evolutions) {
+      names.push(evolution.species.name)
+      return this.getEvolutions(evolution.evolves_to, names)
+    }
+
+    return null!
+
+  }
 
   private getMainSprite(o: Pokemon) {
 
