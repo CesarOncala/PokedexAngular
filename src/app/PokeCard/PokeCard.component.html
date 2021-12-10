@@ -4,7 +4,7 @@
     styleClass="p-card-shadow">
 
     <ng-template pTemplate="header">
-
+      <span class="pokedex_number">#{{pokemon.order}}</span>
       <p-carousel [style]="{'display':'flex', 'flex-direction':'column'}" [value]="pokemon.sprite"
         styleClass="custom-carousel" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="3000"
         [responsiveOptions]="responsiveOptions">
@@ -39,10 +39,10 @@
 
 
         <p-accordion>
-          <p-accordionTab header="{{'Evolutions: '+ ($any (pokemon.evolutions | async))[0].length }}" [selected]="false">
+          <p-accordionTab header="{{'Evolutions: '+ ($any (pokemon.evolutions | async))?.totalEvolves }}" [selected]="false">
 
 
-            <div *ngFor="let item of (pokemon.evolutions | async);let teste = index">
+            <div *ngFor="let item of $any (pokemon.evolutions | async)?.evolutions;let teste = index">
 
               <ng-container *ngIf="teste == 0; else otherblock;">
 

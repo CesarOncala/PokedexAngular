@@ -171,3 +171,14 @@
   border-radius: 7rem;
   box-shadow:2px 2px 15px 2px gold;
 }
+
+.pokedex_number{
+    background-color: gray;
+    border: 2px solid white;
+    border-radius: 0.8rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 0.7rem;
+    font-weight: bold;
+    font-size: 15px;
+}

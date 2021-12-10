@@ -39,8 +39,7 @@ export class PokedexService {
           ,
           evolutions: fetch(o.species.url)
             .then(o => o.json())
-            .then(async o => await fetch(o.evolution_chain.url)
-              .then(o => o.json())
+            .then(async o => await fetch(o.evolution_chain.url).then(o => o.json())
               .then(async o => {
 
                 let evolutions = this.getEvolutions(o.chain.evolves_to);
@@ -71,10 +70,16 @@ export class PokedexService {
                     })
                 })
 
-                return <any>[
-                  evolutions.filter(o=> o!=''),
-                  (await promise)
-                ]
+
+                return <any>
+                  {
+                    totalEvolves: evolutions.length,
+                    evolutions:
+                    [
+                    evolutions.filter(o => o != ''),
+                    (await promise)
+                    ]
+                  }
               })
             )
           ,
@@ -88,7 +93,7 @@ export class PokedexService {
   }
 
   GetPokemonByName(name: string) {
-    return of(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    return of(`https://pokeapi.co/api/v2/pokemon/${name}`.toLowerCase())
   }
 
   private deepSearch(root: any, buffer: string[] = [], search: string = ''): string[] {
@@ -122,10 +127,10 @@ export class PokedexService {
 
     for (const evolution of evolutions) {
       names.push(evolution.species.name)
-      return this.getEvolutions(evolution.evolves_to, names)
+      this.getEvolutions(evolution.evolves_to, names)
     }
 
-    return null!
+    return names;
 
   }
 
