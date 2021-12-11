@@ -1,27 +1,17 @@
 # Pokedex
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.3.
+Developed by César Oncala
 
-## Development server
+Pokedex with paging, search and PrimeNG components.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The api offers data on all pokemons, sprites, moves, evolutions and the list of games where it can be captured
 
-## Code scaffolding
+![image](https://user-images.githubusercontent.com/52250904/145655920-ec2784f0-fbd3-4447-9aaa-af4742996377.png)
+![image](https://user-images.githubusercontent.com/52250904/145655642-3ec6826f-b888-49cd-a414-ce26225783b8.png)
+![image](https://user-images.githubusercontent.com/52250904/145655818-76588b12-fd37-4b79-9524-114a0cd37d11.png)
+![image](https://user-images.githubusercontent.com/52250904/145655864-5d0f716c-e681-4582-8c0f-506898ea7066.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Keyworkds: Angular, Typescript, Css, PrimeNG, PokeApi
